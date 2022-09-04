@@ -5,8 +5,6 @@ import datetime
 import phonenumbers
 import pickle
 import re
-from src.db import session
-from src.models import AddressBook
 
 
 class Field:

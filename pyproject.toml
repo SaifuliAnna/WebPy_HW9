@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "home_work9_lite"
+name = "home_work9"
 version = "0.1.0"
 description = ""
 authors = ["SaifuliAnna <saifulianna.it@gmail.com>"]
@@ -7,6 +7,7 @@ authors = ["SaifuliAnna <saifulianna.it@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 SQLAlchemy = "^1.4.40"
+psycopg2 = "^2.9.3"
 alembic = "^1.8.1"
 
 [tool.poetry.dev-dependencies]
