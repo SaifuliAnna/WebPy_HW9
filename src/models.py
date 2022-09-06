@@ -4,15 +4,12 @@ from sqlalchemy.orm import relationship
 from src.db import Base
 
 
-# Таблиця names_contacts
 class NameContact(Base):
     __tablename__ = "names_contacts"
     id = Column(Integer, primary_key=True)
     first_name = Column(String(50), nullable=False)
-    second_name = Column(String(50), nullable=True)
     birthday = Column('birthday', String(50), nullable=True)
     address = Column('address', String(250), nullable=True)
-    # records = relationship("Record", cascade="all, delete", backref="name_contact")
     phones_contacts = relationship("PhoneContact", secondary="names_to_phones", back_populates="names_contacts")
     emails_contacts = relationship("EmailContact", secondary="names_to_emails", back_populates="names_contacts")
 
@@ -25,7 +22,6 @@ class PhoneContact(Base):
     names_contacts = relationship("NameContact", secondary="names_to_phones", back_populates="phones_contacts")
 
 
-# Таблиця emails_contacts
 class EmailContact(Base):
     __tablename__ = "emails_contacts"
     id = Column(Integer, primary_key=True)

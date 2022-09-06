@@ -5,8 +5,7 @@ import datetime
 import phonenumbers
 import pickle
 import re
-from src.db import session
-from src.models import AddressBook
+from src.seed import *
 
 
 class Field:
@@ -271,7 +270,7 @@ def show_birthday_30_days(contacts, *args):
 
 def exiting(contacts, *args):
     writing_db(contacts)
-    return 'Good bye!'
+    return 'Goodbye!'
 
 
 def find(contacts, *args):
@@ -365,7 +364,7 @@ COMMANDS = {greeting: ['hello'],
             change_contact: ['change '],
             info: ['help', '?'],
             show_all: ['show all'],
-            exiting: ['good bye', 'close', 'exit', '.'],
+            exiting: ['goodbye', 'close', 'exit', '.'],
             del_phone: ['del '],
             add_birthday: ['birthday'],
             days_to_user_birthday: ['days to birthday '],
@@ -399,3 +398,6 @@ def main():
         print(command(contacts, *data))
         if command is exiting:
             break
+
+if __name__ == '__main__':
+    main()
