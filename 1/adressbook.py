@@ -5,7 +5,9 @@ import datetime
 import phonenumbers
 import pickle
 import re
-from src.seed import *
+from src.db import session
+from src.seed import create_users_contacts, create_users_info, \
+    update_contact_phone, remove_cont
 
 
 class Field:
@@ -180,11 +182,13 @@ def add_contact(contacts, *args):
         else:
             contacts[name.value].add_phone(phone)
             writing_db(contacts)
+            create_users_contacts(n_name=name, n_phone=phone)
             return f'Add phone {phone} to user {name.value.title()}'
 
     else:
         contacts[name.value] = Record(name, [phone])
         writing_db(contacts)
+        create_users_contacts(n_name=name, n_phone=phone)
         return f'Add user {name.value.title()} with phone number {phone}'
 
 
@@ -193,6 +197,7 @@ def change_contact(contacts, *args):
     name, old_phone, new_phone = args[0], args[1], args[2]
     contacts[name].edit_phone(Phone(old_phone), Phone(new_phone))
     writing_db(contacts)
+    update_contact_phone(n_name=name, n_phone=phone)
     return f'Change to user {name} phone number from {old_phone} to {new_phone}'
 
 
@@ -227,6 +232,7 @@ def add_email(contacts, *args):
     name, email = args[0], args[1]
     contacts[name].email = Email(email)
     writing_db(contacts)
+    # create_users_info(n_name=name, n_email=email)
     return f'Add/modify email {contacts[name].email} to user {name}'
 
 
@@ -236,6 +242,7 @@ def add_address(contacts, *args):
     address = " ".join(address)
     contacts[name].address = Address(address)
     writing_db(contacts)
+    create_users_info(n_name=name, n_address=address)
     return f'Add/modify address {address.title()} to user {name}'
 
 
@@ -244,6 +251,7 @@ def add_birthday(contacts, *args):
     name, birthday = args[0], args[1]
     contacts[name].birthday = Birthday(birthday)
     writing_db(contacts)
+    create_users_info(n_name=name, n_birthday=birthday)
     return f'Add/modify birthday {contacts[name].birthday} to user {name}'
 
 
@@ -305,6 +313,7 @@ def clear_all(contacts, *args):
     if yes_no == 'y':
         contacts.clear()
         writing_db(contacts)
+        remove_cont(n_name=name)
         return 'Address book is empty'
     else:
         return 'Removal canceled'
@@ -398,6 +407,7 @@ def main():
         print(command(contacts, *data))
         if command is exiting:
             break
+
 
 if __name__ == '__main__':
     main()

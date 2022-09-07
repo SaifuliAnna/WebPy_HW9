@@ -75,13 +75,13 @@ def show_all(class_name):
         print(vars(c))
 
 
-def remove(n_id, class_name, *args, **kwargs):
+def remove(n_id, class_name):
     session.query(class_name).filter(class_name.id == n_id).delete()
     session.commit()
 
 
-if __name__ == '__main__':
-    create_names_contacts('Ann')
+# if __name__ == '__main__':
+    # create_names_contacts('Ann')
     # create_phones_contacts('+38096503****')
     # create_emails_contacts('ann@gmail.com')
     # remove(1, PhoneContact)
